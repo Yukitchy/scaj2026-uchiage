@@ -498,15 +498,25 @@ document.addEventListener('click', function(e){
   }
 });
 function castVote(shop) {
-    const d = D.days[state.day];
-    const who = state.member;
-    state.saving = { shop: shop }; state.err = null; render();
-    store.save(d.id, who, shop).then(function(){ return store.load(); }).then(function(v){
-      state.votes = v; state.fresh = { shop: shop, member: who }; state.saving = null;
-      const sn = d.shops.find(x => x.id === shop).name;
-      state.msg = who + 'が「' + sn + '」にスタンプを押しました（選び直しできます）';
-      render();
-    }).catch(function(){ state.saving = null; state.err = { shop: shop }; render(); });
+  // 押した瞬間に画面へ反映し、保存は裏で送る（GASは数秒かかるため）。失敗したら元に戻して赤字で知らせる
+  const d = D.days[state.day];
+  const who = state.member;
+  const prev = (state.votes[d.id] || {})[who];
+  const apply = () => { state.votes[d.id] = Object.assign({}, state.votes[d.id], { [who]: shop }); };
+  apply();
+  state.pending = { apply: apply };
+  state.err = null; state.fresh = { shop: shop, member: who };
+  const sn = d.shops.find(x => x.id === shop).name;
+  state.msg = who + 'が「' + sn + '」にスタンプを押しました（選び直しできます）';
+  render();
+  store.save(d.id, who, shop).then(function(){ state.pending = null; })
+    .catch(function(){
+      state.pending = null;
+      const v = Object.assign({}, state.votes[d.id]);
+      if (prev) v[who] = prev; else delete v[who];
+      state.votes[d.id] = v; state.fresh = null; state.msg = '';
+      state.err = { shop: shop }; render();
+    });
 }
 
 /* ===== 初期化 ===== */
@@ -523,7 +533,7 @@ function refresh(){
     const j = JSON.stringify(v), first = state.loading;
     state.loading = false;
     if (state.saving) return;
-    if (j !== last || first) { last = j; state.votes = v; render(); }
+    if (j !== last || first) { last = j; state.votes = v; if (state.pending) state.pending.apply(); render(); }
     else { const n = document.getElementById('loadnote'); if (n) n.textContent = ''; }
   }).catch(function(){
     state.loading = false; const n = document.getElementById('loadnote'); if (n) n.textContent = '票を読み込めませんでした。しばらくして開き直してください';
