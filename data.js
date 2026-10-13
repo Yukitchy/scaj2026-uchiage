@@ -13,7 +13,7 @@ window.UCHIAGE = {
   {
    "id": "d14",
    "eventId": "dbfcelmlibgeebcn",
-   "label": "10/14 水",
+   "label": "10/14(水)",
    "name": "中打ち上げ",
    "pax": 4,
    "members": [
@@ -97,7 +97,7 @@ window.UCHIAGE = {
   {
    "id": "d15",
    "eventId": "flghfgpnjkioeibk",
-   "label": "10/15 木",
+   "label": "10/15(木)",
    "name": "打ち上げ",
    "pax": 5,
    "members": [
