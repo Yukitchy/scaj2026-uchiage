@@ -125,6 +125,7 @@ section.blk{margin-top:44px}
 .chooser.nudge{animation:nudge .4s}
 @keyframes nudge{20%{transform:translateX(-6px)}60%{transform:translateX(6px)}}
 .status{min-height:22px;font-size:13px;margin-top:6px;color:var(--mute)}
+.ib{display:inline-block}
 .status.warn-red{color:#d0021b;font-size:15px;font-weight:800}
 .ask p{color:#d0021b}
 
@@ -474,7 +475,7 @@ function render(){
 
     '<section class="blk"><div class="sec-h"><h2>お店一覧</h2></div>' +
       '<p class="loadnote" id="loadnote">' + (state.loading ? '票を読み込み中' : '') + '</p><div class="chooser" id="chooser"><p class="q">押す人を選ぶ<span>STEP 1</span></p><div class="names" role="radiogroup" aria-label="押す人">' + chips + '</div>' +
-      (state.member ? '<p class="status" id="status" aria-live="polite">' + esc(state.msg) + '</p>' : '<p class="status warn-red" id="status" role="alert">まず自分の名前を押してください（名前を選ばないとスタンプは押せません）</p>') + '</div>' +
+      (state.member ? '<p class="status" id="status" aria-live="polite">' + esc(state.msg) + '</p>' : '<p class="status warn-red" id="status" role="alert"><span class="ib">まず自分の名前を押してください</span><span class="ib">（名前を選ばないとスタンプは押せません）</span></p>') + '</div>' +
       '<div class="dir-head" aria-hidden="true"><span>NO.</span><span>お店・予算</span><span>徒歩</span><span>席</span><span>食べログ</span><span>スタンプ</span></div>' +
       d.shops.map((s, i) => rowHtml(d, s, i, t, letter)).join('') +
     '</section>';
