@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SCAJ2026 打ち上げどこ行く？</title>
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:title" content="SCAJ2026 打ち上げどこ行く？">
+<meta property="og:description" content="10/14中打ち上げ・10/15打ち上げのお店に投票">
+<meta name="description" content="10/14中打ち上げ・10/15打ち上げのお店に投票">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23ffc800'/%3E%3Ctext x='16' y='24' text-anchor='middle' font-size='22' font-weight='900' font-family='sans-serif' fill='%2317191c'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#17191c;
+  --paper:#fbfaf6;
+  --sign:#ffc800;
+  --rule:#cfccc1;
+  --block:#efede5;
+  --mute:#585b60;
+  --jr:#2b9a50;
+  --yuri:#1a7fbf;
+  --sans:"Noto Sans JP","Hiragino Sans","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);color:var(--ink);font:400 14px/1.8 var(--sans);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+body,p,li,dd,dt,span,small,button,a,h1,h2,h3{word-break:auto-phrase;line-break:strict;overflow-wrap:anywhere}
+h1,h2,h3{text-wrap:balance;line-height:1.35}
+p{text-wrap:pretty}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.nb{white-space:nowrap}
+.mono{font-family:var(--mono)}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+/* ---------- cover ---------- */
+.cover{background:var(--sign);padding-top:14px}
+.cover-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  font:700 13px/1.5 var(--mono);letter-spacing:.08em;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.cover-top span{white-space:nowrap}
+.cover h1{margin:28px 0 14px}
+.cover h1 .en{display:block;font:700 clamp(46px,14vw,88px)/1 var(--mono);letter-spacing:-.02em}
+.cover h1 .ja{display:block;font:900 clamp(32px,9vw,56px)/1.25 var(--sans);margin-top:6px;white-space:nowrap}
+.cover .lead{font-weight:500;font-size:15px;margin-bottom:30px;max-width:34em}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+.tab{
+  text-align:left;border:2px solid var(--ink);border-bottom:0;background:transparent;
+  padding:10px 12px 12px;min-height:76px;border-radius:6px 6px 0 0;line-height:1.4;
+}
+.tab .t1{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.tab .zone{font:700 26px/1 var(--mono)}
+.tab .date{font-weight:900;font-size:17px;white-space:nowrap}
+.tab .t2{display:block;font-size:13px;font-weight:500;margin-top:4px}
+.tab[aria-selected="true"]{background:var(--paper)}
+.tab[aria-selected="false"]:hover{background:rgba(255,255,255,.35)}
+
+/* ---------- sections ---------- */
+main{padding-bottom:48px}
+section.blk{margin-top:44px}
+.sec-h{border-top:4px solid var(--ink);padding-top:10px;margin-bottom:18px}
+.sec-h h2{font-size:28px;font-weight:900;letter-spacing:.01em}
+.sec-h p{color:var(--mute);font-size:13px;margin-top:2px}
+
+.dayhead{display:grid;grid-template-columns:auto 1fr;gap:16px;margin-top:28px;align-items:start}
+.zonesign{background:var(--ink);color:var(--sign);width:76px;height:76px;display:grid;place-items:center;
+  font:700 52px/1 var(--mono);border-radius:4px}
+.dayhead h2{font-size:28px;font-weight:900}
+.facts{display:flex;flex-wrap:wrap;gap:4px 22px;margin-top:6px}
+.facts div{display:flex;gap:8px;align-items:baseline;white-space:nowrap}
+.facts dt{font:500 12px/1 var(--mono);color:var(--mute);letter-spacing:.06em}
+.facts dd{font-weight:700;font-size:15px}
+.caution{display:flex;gap:10px;align-items:flex-start;margin-top:16px;padding:12px 14px;background:var(--block);border-radius:4px}
+.caution svg{flex:none;margin-top:4px}
+
+/* timeline */
+.tl{position:relative;padding-top:42px}
+.tl .tick{position:absolute;top:0;width:0;height:100%}
+.tl .tick::before{content:"";position:absolute;left:-1px;top:20px;bottom:0;width:2px;background:var(--ink)}
+.tl .tick .lab{position:absolute;top:0;left:3px;font:700 12px/1.25 var(--mono);white-space:nowrap}
+.tl .tick .lab small{display:block;font:500 12px/1.25 var(--sans);color:var(--mute)}
+.tl .tick.r .lab{left:auto;right:3px;text-align:right}
+.bar{display:flex;height:52px;border:2px solid var(--ink);border-radius:2px;overflow:hidden;background:#fff}
+.seg{display:flex;align-items:center;justify-content:center;min-width:0;font-weight:700;font-size:13px;white-space:nowrap;padding:0 4px}
+.seg.pre{background:var(--block);color:var(--mute);font-weight:500}
+.seg.move{background:repeating-linear-gradient(135deg,#fff 0 6px,var(--block) 6px 8px);font-weight:500}
+.seg.main{background:var(--sign);font-weight:900;font-size:15px}
+.seg.open{background:linear-gradient(90deg,var(--sign) 78%,var(--paper))}
+.seg + .seg{border-left:2px solid var(--ink)}
+
+/* legend */
+.legend{display:grid;gap:10px;font-size:13px}
+.legend h3{font-size:18px;font-weight:900;margin-bottom:2px}
+.legend div{display:flex;align-items:center;gap:10px;line-height:1.5}
+.legend .ic{flex:none;width:52px;display:flex;justify-content:center}
+.legend ul{list-style:none;padding:0;display:grid;gap:10px;border-top:1px solid var(--ink);padding-top:12px}
+
+/* map */
+.mapsec{display:grid;gap:16px}
+.map{border:2px solid var(--ink);background:#fff;border-radius:2px}
+.map svg{display:block;width:100%;height:auto}
+.map text{font-family:var(--sans)}
+.map .halo{paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}
+.map a{cursor:pointer}
+.map a:hover rect.pbox{stroke-width:3.5}
+.cap{font-size:12.5px;color:var(--mute);margin-top:6px}
+
+/* directory */
+.chooser{background:var(--paper);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:10px 0 12px;margin-bottom:6px;z-index:5}
+.chooser .q{font-weight:900;font-size:15px;margin-bottom:6px}
+.chooser .q span{font:500 12px/1 var(--mono);color:var(--mute);margin-left:8px;letter-spacing:.05em}
+.names{display:flex;flex-wrap:wrap;gap:8px}
+.name{min-height:44px;padding:0 14px;border:2px solid var(--ink);background:#fff;border-radius:4px;font-weight:700;
+  display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.name[aria-checked="true"]{background:var(--ink);color:#fff}
+.name .done{display:none}
+.name.voted .done{display:inline-flex}
+.chooser.nudge{animation:nudge .4s}
+@keyframes nudge{20%{transform:translateX(-6px)}60%{transform:translateX(6px)}}
+.status{min-height:22px;font-size:13px;margin-top:6px;color:var(--mute)}
+
+.dir-head{display:none}
+.row{display:grid;grid-template-columns:64px 1fr;column-gap:12px;row-gap:10px;padding:18px 0;border-bottom:1px solid var(--ink);scroll-margin-top:12px}
+.code{display:block;font:700 15px/1 var(--mono);background:var(--ink);color:#fff;padding:10px 0;text-align:center;border-radius:3px;letter-spacing:.02em}
+.is-pick .code{background:var(--sign);color:var(--ink)}
+.c-main h3{font-size:19px;font-weight:900}
+.kana{font-size:12.5px;color:var(--mute);line-height:1.5}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;padding:2px 8px;border-radius:2px;line-height:1.6;white-space:nowrap}
+.tag.pick{background:var(--sign)}
+.tag.cof{border:1.5px solid var(--ink);font-family:var(--mono);letter-spacing:.05em}
+.genre{margin-top:6px;font-weight:500}
+.specs,.c-note,.c-vote{grid-column:1/-1}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px}
+.price{margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.price .amt{font:900 22px/1.3 var(--sans)}
+.price .amt small{display:block;font:500 12px/1.4 var(--sans);color:var(--mute)}
+.price .amt .lb{display:block;font:500 12px/1.2 var(--mono);color:var(--mute);letter-spacing:.06em}
+.yen{font:700 15px/1 var(--mono);letter-spacing:.04em;white-space:nowrap;border:2px solid var(--ink);border-radius:3px;padding:5px 7px;background:#fff}
+.yen i{font-style:normal;color:#b9b6aa}
+.c-photos{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.c-photos figure{min-width:0}
+.ph{display:block;aspect-ratio:4/3;width:100%;object-fit:cover;border-radius:4px;background:var(--block)}
+.ph-ng{aspect-ratio:4/3;display:grid;place-items:center;text-align:center;padding:8px;border-radius:4px;background:var(--block);color:var(--mute);font-size:12px;line-height:1.5}
+.c-photos figcaption{font-size:12px;line-height:1.5;color:var(--mute);margin-top:4px}
+.c-photos figcaption b{color:var(--ink);margin-right:6px}
+.c-photos figcaption a{text-underline-offset:2px}
+.loadnote{font:500 12px/1.5 var(--mono);color:var(--mute);min-height:18px;margin-bottom:6px}
+.errmsg{color:#b3261e;font-weight:700;font-size:13px}
+.press:disabled{cursor:wait;opacity:.7}
+.specs>div>b{display:block;font:500 12px/1.5 var(--mono);color:var(--mute);letter-spacing:.05em}
+.specs>div>span{font-weight:700;font-size:14px;line-height:1.55;display:block}
+.c-note p{font-size:14px}
+.c-note .warn{display:flex;gap:7px;align-items:flex-start;margin-top:4px;color:var(--mute);font-size:13px}
+.c-note .warn svg{flex:none;margin-top:3px}
+.c-note .go{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-weight:700;font-size:14px;text-decoration:underline;text-underline-offset:3px;min-height:36px;white-space:nowrap}
+.c-vote{display:grid;gap:10px}
+.tally{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tally .n{font:700 40px/1 var(--mono);min-width:26px}
+.tally .u{font-weight:700;margin-left:-8px}
+.stamps{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:6px 10px}
+.stamps li{display:flex;flex-direction:column;align-items:center;font-size:12px;line-height:1.3;white-space:nowrap}
+.stamps .empty{color:var(--mute)}
+.stamp{display:block;color:var(--ink);transform:rotate(var(--r,0deg))}
+.stamp.new{animation:thump .3s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes thump{0%{transform:rotate(var(--r)) scale(2);opacity:0}100%{transform:rotate(var(--r)) scale(1);opacity:1}}
+.press{min-height:46px;padding:0 16px;border:2px solid var(--ink);background:var(--ink);color:#fff;border-radius:4px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;max-width:100%}
+.press:hover{background:#34383d}
+.press[aria-pressed="true"]{background:var(--sign);color:var(--ink);cursor:default}
+.press svg{flex:none}
+
+footer{border-top:4px solid var(--ink);padding:14px 0 36px;font-size:13px;color:var(--mute)}
+footer p+p{margin-top:2px}
+
+@media (min-width:860px){
+  body{font-size:15px}
+  .mapsec{grid-template-columns:minmax(0,640px) 1fr;gap:36px;align-items:start}
+  .dayhead{grid-template-columns:auto 1fr auto}
+  .dayhead .cautionbox{max-width:360px}
+  .caution{margin-top:0}
+  .chooser{position:sticky;top:0;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .chooser .q{margin:0}
+  .status{margin:0;margin-left:auto}
+  .dir-head,.row{grid-template-columns:76px minmax(0,2.6fr) minmax(0,1.5fr) minmax(0,1.3fr) 74px minmax(210px,1.5fr);column-gap:16px}
+  .dir-head{display:grid;font:500 12px/1 var(--mono);color:var(--mute);letter-spacing:.06em;padding:6px 0;border-bottom:2px solid var(--ink)}
+  .row{grid-template-rows:auto auto auto}
+  .row>.c-code{grid-row:1/4}
+  .row>.c-vote{grid-row:1/4;grid-column:6;align-content:start}
+  .c-photos{grid-column:2/6}
+  .specs{display:contents}
+  .specs>div>b{display:none}
+  .c-note{grid-column:2/6}
+  .c-main{grid-column:2}
+  .specs>div{align-self:start}
+}
+@media (prefers-reduced-motion:reduce){.stamp.new,.chooser.nudge{animation:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".09" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="1.8"/>
+    </filter>
+  </defs>
+</svg>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="cover-top" id="cover-top"></div>
+    <h1 id="h1"></h1>
+    <p class="lead" id="lead"></p>
+    <div class="tabs" role="tablist" id="tabs"></div>
+  </div>
+</header>
+
+<main class="wrap" id="view"></main>
+
+<footer>
+  <div class="wrap" id="foot"></div>
+</footer>
+
+<script src="data.js"></script>
+<script src="photos.js"></script>
+<script>
+(function(){
+const D = window.UCHIAGE;
+
+/* ===== 保存層（Google Apps Script。Content-Type は付けない＝プリフライトを避ける） ===== */
+const API = 'https://script.google.com/macros/s/AKfycbwt_JHyuElbah-a0gaTcM7_D7b803AleRauZjSTnKSeYJ92yw0JncUYEcgIVE20pDnosA/exec';
+const store = {
+  load(){
+    return Promise.all(D.days.map(function(d){
+      return fetch(API + '?api=event&id=' + d.eventId).then(r => r.json()).then(function(j){
+        if (!j || !j.ok) throw new Error('load');
+        const m = {};
+        (j.votes || []).forEach(function(x){ if (x.mark === '\u25cb') m[x.name] = x.slotKey; });
+        return [d.id, m];
+      });
+    })).then(function(a){ const v = {}; a.forEach(x => { v[x[0]] = x[1]; }); return v; });
+  },
+  save(dayId, member, shopId){
+    const d = D.days.find(x => x.id === dayId), marks = {};
+    d.shops.forEach(s => { marks[s.id] = s.id === shopId ? '\u25cb' : '\u00d7'; });
+    return fetch(API, { method: 'POST', body: JSON.stringify({ action: 'submit', id: d.eventId, name: member, marks: marks, comment: '' }) })
+      .then(r => r.json()).then(function(j){ if (!j || !j.ok) throw new Error('save'); });
+  }
+};
+const ME_KEY = 'scaj2026-uchiage-me';
+function getMe(){ try { return localStorage.getItem(ME_KEY); } catch(e) { return null; } }
+function setMe(n){ try { localStorage.setItem(ME_KEY, n); } catch(e) {} }
+const PH = window.UCHIAGE_PHOTOS || {};
+const yenLevel = b => { const n = Number(((String(b).match(/[\d,]+/) || ['0'])[0]).replace(/,/g, '')); return n >= 10000 ? 4 : n >= 6000 ? 3 : 2; };
+const yenChip = b => { const l = yenLevel(b); return '<span class="yen" aria-label="価格帯 ' + '¥'.repeat(l) + '">' + '¥'.repeat(l) + '<i>' + '¥'.repeat(4 - l) + '</i></span>'; };
+
+/* ===== util ===== */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// 語の途中で折らない: 「・」「空白」「（」の位置だけで折れる単位に分ける
+const nb = s => String(s).split(/(?<=[・ ])|(?=（)/).map(p => '<span class="nb">' + esc(p) + '</span>').join('<wbr>');
+const hash = s => [...s].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+const toMin = t => { const a = t.split(':').map(Number); return a[0] * 60 + a[1]; };
+const fromMin = n => String(Math.floor(n / 60)).padStart(2, '0') + ':' + String(n % 60).padStart(2, '0');
+
+const IC = {
+  star: '<svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><polygon points="8,1.2 10,6 15,6.3 11.1,9.5 12.3,14.5 8,11.8 3.7,14.5 4.9,9.5 1,6.3 6,6" fill="currentColor"/></svg>',
+  cup: '<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M2 6h9v3a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4z"/><path d="M11 7h1.2a1.8 1.8 0 0 1 0 3.6H10.6"/><path d="M4.5 1.5v2M7.5 1.5v2"/></svg>',
+  ext: '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11L11 5M6 4.5h5.5V10"/></svg>',
+  warn: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M8 2L14.5 13.5h-13z"/><path d="M8 6.5v3.2M8 11.6v.2"/></svg>',
+  check: '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 4.6"/></svg>',
+  stampbtn: '<svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="7" r="3.6"/><path d="M6 12.5h8l1.2 3H4.8z"/><path d="M3.5 18h13"/></svg>'
+};
+
+function stamp(name, size, fresh){
+  const rot = (hash(name) % 25) - 12;
+  return '<svg class="stamp' + (fresh ? ' new' : '') + '" width="' + size + '" height="' + size + '" viewBox="0 0 40 40" style="--r:' + rot + 'deg" aria-hidden="true">' +
+    '<g filter="url(#rough)" fill="none" stroke="currentColor"><circle cx="20" cy="20" r="18" stroke-width="2.6"/><circle cx="20" cy="20" r="14" stroke-width="1"/>' +
+    '<text x="20" y="26.5" text-anchor="middle" font-size="18" font-weight="900" fill="currentColor" stroke="none" font-family="Noto Sans JP,sans-serif">' + esc([...name][0]) + '</text></g></svg>';
+}
+
+/* ===== 状態 ===== */
+const state = { day: 0, member: getMe(), votes: {}, msg: '', fresh: null, loading: true, saving: null, err: null };
+
+function tally(d){
+  const out = {}; const v = state.votes[d.id] || {};
+  d.members.forEach(m => { const s = v[m]; if (s && d.shops.some(x => x.id === s)) (out[s] = out[s] || []).push(m); });
+  return out;
+}
+
+/* ===== 当日の流れ ===== */
+const TT = {
+  d14: { pre: [['17:00', '18:30', 'アフターパーティ', '閉場', '終了'], ['18:30', '@s', '移動']], post: null },
+  d15: { pre: [['17:00', '18:00', '撤収', '閉場', '撤収完了'], ['18:00', '@s', '移動']], post: ['@e', '21:15', '帰路'] }
+};
+function timeline(d){
+  const m = d.time.match(/(\d+:\d+)〜(\d+:\d+)?/);
+  const start = m ? m[1] : '19:00', end = m && m[2] ? m[2] : null;
+  const cfg = TT[d.id] || { pre: [['17:00', '@s', '移動', '閉場']], post: null };
+  const r = t => t === '@s' ? start : t === '@e' ? end : t;
+  const segs = []; const marks = [];
+  cfg.pre.forEach((p, i) => {
+    segs.push({ a: toMin(r(p[0])), b: toMin(r(p[1])), label: p[2], kind: i === 0 ? 'pre' : 'move' });
+    marks.push([toMin(r(p[0])), i === 0 ? '閉場' : (cfg.pre[i - 1][4] || '')]);
+  });
+  const sM = toMin(start);
+  const eM = end ? toMin(end) : sM + 130;
+  segs.push({ a: sM, b: eM, label: d.name, kind: 'main' + (end ? '' : ' open') });
+  marks.push([sM, '開始']);
+  let axisEnd = eM;
+  if (cfg.post && end) {
+    axisEnd = toMin(cfg.post[1]);
+    segs.push({ a: eM, b: axisEnd, label: cfg.post[2], kind: 'pre' });
+    marks.push([eM, '解散']);
+  }
+  const a0 = segs[0].a, tot = axisEnd - a0;
+  const pct = n => (n - a0) / tot * 100;
+  const ticks = marks.map(k => {
+    const p = pct(k[0]);
+    return '<div class="tick' + (p > 82 ? ' r' : '') + '" style="left:' + p + '%"><div class="lab">' + fromMin(k[0]) + '<small>' + esc(k[1]) + '</small></div></div>';
+  }).join('');
+  const bar = segs.map(s => '<div class="seg ' + s.kind + '" style="flex:' + (s.b - s.a) + ' 1 0">' + esc(s.label) + '</div>').join('');
+  return '<div class="tl">' + ticks + '<div class="bar">' + bar + '</div></div>';
+}
+
+/* ===== 会場マップ ===== */
+const ANG = { lodge: -100, mitsumasa: 200, miyamasu: 160, yonayona: 225, homuku: 120,
+              torisato: 200, okunoma: 235, hanare: 290, sushihana: 165, shibahama: 130 };
+function mapSvg(d, t, letter){
+  const cx = 215, cy = 160;
+  let blocks = '';
+  [8, 74, 140, 206].forEach(y => {
+    [8, 74, 140].forEach(x => { blocks += '<rect x="' + x + '" y="' + y + '" width="58" height="58" rx="2" fill="var(--block)"/>'; });
+    [236, 302].forEach(x => { blocks += '<rect x="' + x + '" y="' + y + '" width="50" height="58" rx="2" fill="var(--block)"/>'; });
+  });
+  let pins = '', lines = '';
+  d.shops.forEach((s, i) => {
+    const wm = (s.area.match(/徒歩(\d+)/) || [0, 5])[1];
+    const r = 30 + Number(wm) * 13;
+    const th = (ANG[s.id] != null ? ANG[s.id] : i * 70) * Math.PI / 180;
+    const x = cx + r * Math.cos(th), y = cy + r * Math.sin(th);
+    const v = (t[s.id] || []).length;
+    const w = 46 + v * 6, h = 26 + v * 3;
+    const code = letter + '-' + String(i + 1).padStart(2, '0');
+    lines += '<line x1="' + cx + '" y1="' + cy + '" x2="' + x.toFixed(1) + '" y2="' + y.toFixed(1) + '" stroke="#a9a699" stroke-width="1" stroke-dasharray="3 3"/>';
+    let g = '<a href="#r-' + s.id + '" aria-label="' + esc(code + ' ' + s.name + ' ' + v + '票') + '"><g transform="translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ')">';
+    g += '<rect class="pbox" x="' + (-w / 2) + '" y="' + (-h / 2) + '" width="' + w + '" height="' + h + '" rx="3" fill="' + (v ? 'var(--ink)' : '#fff') + '" stroke="var(--ink)" stroke-width="2.4"/>';
+    g += '<text x="0" y="4.6" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="13" fill="' + (v ? '#fff' : 'var(--ink)') + '">' + code + '</text>';
+    g += '<text class="halo" x="0" y="' + (h / 2 + 14) + '" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">' + wm + '分</text>';
+    if (s.pick) g += '<g transform="translate(' + (-w / 2) + ' ' + (-h / 2) + ')"><circle r="10" fill="var(--sign)" stroke="var(--ink)" stroke-width="1.6"/><polygon transform="translate(-6 -6) scale(.75)" points="8,1.2 10,6 15,6.3 11.1,9.5 12.3,14.5 8,11.8 3.7,14.5 4.9,9.5 1,6.3 6,6" fill="var(--ink)"/></g>';
+    if (v) g += '<g transform="translate(' + (w / 2) + ' ' + (-h / 2) + ')"><circle r="10" fill="var(--sign)" stroke="var(--ink)" stroke-width="1.6"/><text y="4.4" text-anchor="middle" font-size="12" font-weight="900" font-family="IBM Plex Mono,monospace" fill="var(--ink)">' + v + '</text></g>';
+    g += '</g></a>';
+    pins += g;
+  });
+  const ring = (m, ang) => {
+    const r = 30 + m * 13, th = ang * Math.PI / 180;
+    return '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="#a9a699" stroke-width="1.2"/>' +
+      '<text class="halo" x="' + (cx + r * Math.cos(th)).toFixed(1) + '" y="' + (cy + r * Math.sin(th)).toFixed(1) + '" text-anchor="middle" font-size="12" font-weight="700" fill="#585b60">徒歩' + m + '分</text>';
+  };
+  return '<svg viewBox="0 0 360 290" role="img" aria-label="新橋駅を中心にした模式図。お店は駅からの徒歩分数の位置に配置">' +
+    blocks + ring(5, -28) + ring(10, -52) + lines +
+    // JR
+    '<line x1="215" y1="0" x2="215" y2="290" stroke="var(--jr)" stroke-width="5"/><line x1="215" y1="0" x2="215" y2="290" stroke="#fff" stroke-width="1.5" stroke-dasharray="5 5"/>' +
+    '<text class="halo" x="224" y="16" font-size="12" font-weight="700" fill="#1f6f3a">東京 4分</text>' +
+    '<text class="halo" x="224" y="284" font-size="12" font-weight="700" fill="#1f6f3a">品川 7分</text>' +
+    // ゆりかもめ
+    '<path d="M222 160 H300 L338 198 V240" fill="none" stroke="var(--yuri)" stroke-width="3.5" stroke-linejoin="round"/>' +
+    '<path d="M331 236 L338 247 L345 236" fill="none" stroke="var(--yuri)" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<text class="halo" x="232" y="180" font-size="12" font-weight="700" fill="#17699b">ゆりかもめ</text>' +
+    '<text class="halo" x="352" y="266" text-anchor="end" font-size="12" font-weight="700" fill="#17699b">国際展示場正門へ</text>' +
+    '<text class="halo" x="352" y="282" text-anchor="end" font-size="12" font-weight="700" fill="#17699b">約25分</text>' +
+    // station
+    '<rect x="204" y="146" width="22" height="28" rx="3" fill="#fff" stroke="var(--ink)" stroke-width="2.4"/>' +
+    '<text class="halo" x="232" y="150" font-size="13" font-weight="900" fill="var(--ink)">新橋駅</text>' +
+    '<text x="6" y="284" font-size="12" font-weight="700" fill="#585b60" class="halo">← 烏森口側</text>' +
+    pins + '</svg>';
+}
+
+/* ===== 一覧 ===== */
+function photos(s){
+  const p = PH[s.id]; if (!p) return '';
+  return '<div class="c-photos">' + [['inside', '店内'], ['food', '料理']].map(function(k){
+    const x = p[k[0]]; if (!x) return '';
+    return '<figure><img class="ph" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="' + esc(x.src) + '" alt="' + esc(s.name + ' ' + k[1]) + '" onerror="this.outerHTML=\'<div class=ph-ng>写真を読み込めませんでした</div>\'">' +
+      '<figcaption><b>' + k[1] + '</b><a href="' + esc(x.page) + '" target="_blank" rel="noopener">' + esc(x.credit) + '</a></figcaption></figure>';
+  }).join('') + '</div>';
+}
+
+function rowHtml(d, s, i, t, letter){
+  const vs = t[s.id] || [];
+  const code = letter + '-' + String(i + 1).padStart(2, '0');
+  const mine = state.member && (state.votes[d.id] || {})[state.member] === s.id;
+  const fresh = state.fresh, pr = (PH._price || {})[s.id];
+  const busy = state.saving && state.saving.shop === s.id;
+  const tags = (s.pick ? '<span class="tag pick">' + IC.star + '幹事のおすすめ</span>' : '') +
+               (s.coffee ? '<span class="tag cof">' + IC.cup + 'COFFEE</span>' : '');
+  const st = vs.length
+    ? vs.map(m => '<li>' + stamp(m, 40, fresh && fresh.shop === s.id && fresh.member === m) + '<span>' + esc(m) + '</span></li>').join('')
+    : '<li class="empty">まだ押されていません</li>';
+  return '<article class="row' + (s.pick ? ' is-pick' : '') + '" id="r-' + esc(s.id) + '">' +
+    '<div class="c-code"><span class="code">' + code + '</span></div>' +
+    '<div class="c-main"><h3>' + esc(s.name) + '</h3><p class="kana">' + esc(s.kana) + '</p>' +
+      '<div class="price">' + yenChip(s.budget) + '<p class="amt"><span class="lb">予算</span>' + nb(s.budget) +
+        (pr ? '<small>掲載　' + esc(pr.replace(/\uFFE5/g, '¥').replace(/～/g, '〜')) + '</small>' : '') + '</p></div>' +
+      (tags ? '<p class="tags">' + tags + '</p>' : '') + '<p class="genre">' + nb(s.genre) + '</p></div>' +
+    '<div class="specs">' +
+      '<div><b>徒歩</b><span>' + nb(s.area) + '</span></div>' +
+      '<div><b>席</b><span>' + nb(s.room) + '</span></div>' +
+      '<div><b>食べログ</b><span class="mono">' + (s.score ? esc(s.score) : '評価なし') + '</span></div>' +
+    '</div>' +
+    '<div class="c-note"><p>' + esc(s.point) + '</p>' +
+      '<p class="warn">' + IC.warn + '<span>' + esc(s.caution) + '</span></p>' +
+      '<a class="go" href="' + esc(s.url) + '" target="_blank" rel="noopener">お店のページ' + IC.ext + '</a></div>' +
+    photos(s) +
+    '<div class="c-vote"><div class="tally"><b class="n">' + vs.length + '</b><span class="u">票</span></div>' +
+      '<ul class="stamps">' + st + '</ul>' +
+      '<button class="press" data-shop="' + esc(s.id) + '"' + (state.saving ? ' disabled' : '') + ' aria-pressed="' + (mine ? 'true' : 'false') + '">' +
+        (busy ? '保存中…' : mine ? IC.check + '押した' : IC.stampbtn + (state.member ? esc(state.member) + 'のスタンプを押す' : 'スタンプを押す')) +
+      '</button>' + (state.err && state.err.shop === s.id ? '<p class="errmsg" role="alert">保存できませんでした。もう一度押してください</p>' : '') + '</div>' +
+  '</article>';
+}
+
+function render(){
+  const d = D.days[state.day], letter = String.fromCharCode(65 + state.day);
+  if (state.member && d.members.indexOf(state.member) < 0) state.member = null;
+  const t = tally(d), v = state.votes[d.id] || {};
+
+  document.getElementById('tabs').innerHTML = D.days.map((x, i) =>
+    '<button class="tab" role="tab" data-day="' + i + '" aria-selected="' + (i === state.day) + '">' +
+    '<span class="t1"><span class="zone">' + String.fromCharCode(65 + i) + '</span><span class="date">' + esc(x.label) + '</span></span>' +
+    '<span class="t2">' + esc(x.name) + '　' + x.pax + '名</span></button>').join('');
+
+  const chips = d.members.map(m =>
+    '<button class="name' + (v[m] ? ' voted' : '') + '" role="radio" data-m="' + esc(m) + '" aria-checked="' + (state.member === m) + '">' +
+    esc(m) + '<span class="done">' + IC.check + '</span></button>').join('');
+
+  document.getElementById('view').innerHTML =
+    '<div class="dayhead">' +
+      '<div class="zonesign" aria-hidden="true">' + letter + '</div>' +
+      '<div><h2>' + esc(d.label) + ' ' + esc(d.name) + '</h2>' +
+        '<dl class="facts"><div><dt>開始</dt><dd class="mono">' + esc(d.time) + '</dd></div><div><dt>人数</dt><dd>' + d.pax + '名</dd></div></dl>' +
+        '<p class="cap" style="margin-top:6px">' + d.members.map(esc).join('、') + '</p></div>' +
+      '<div class="cautionbox" style="grid-column:1/-1"><div class="caution">' + IC.warn + '<p>' + esc(d.note) + '</p></div></div>' +
+    '</div>' +
+
+    '<section class="blk"><div class="sec-h"><h2>当日の流れ</h2></div>' + timeline(d) + '</section>' +
+
+    '<section class="blk"><div class="sec-h"><h2>会場マップ</h2></div>' +
+      '<div class="mapsec"><div><div class="map">' + mapSvg(d, t, letter) + '</div>' +
+      '<p class="cap">模式図です。実際の距離や方角とは異なります。ブースをタップすると一覧へ移ります。</p></div>' +
+      '<div class="legend"><h3>凡例</h3><ul>' +
+        '<li><div><span class="ic"><span class="tag pick" style="padding:2px 5px">' + IC.star + '</span></span><span>幹事のおすすめ</span></div></li>' +
+        '<li><div><span class="ic"><span class="tag cof" style="padding:2px 5px">' + IC.cup + '</span></span><span>コーヒーが主役のお店</span></div></li>' +
+        '<li><div><span class="ic"><svg width="46" height="26" viewBox="0 0 46 26" aria-hidden="true"><rect x="1.5" y="3" width="43" height="20" rx="3" fill="#fff" stroke="#17191c" stroke-width="2.2"/></svg></span><span>ブース番号。票が入ると大きく黒くなり、右上に票数が付く</span></div></li>' +
+        '<li><div><span class="ic">' + stamp('押', 34, false) + '</span><span>スタンプ。名前の頭文字で、1人1日1票</span></div></li>' +
+        '<li><div><span class="ic"><svg width="46" height="10" viewBox="0 0 46 10" aria-hidden="true"><line x1="0" y1="5" x2="46" y2="5" stroke="#2b9a50" stroke-width="5"/></svg></span><span>JR（東京駅・品川駅方面）</span></div></li>' +
+        '<li><div><span class="ic"><svg width="46" height="10" viewBox="0 0 46 10" aria-hidden="true"><line x1="0" y1="5" x2="46" y2="5" stroke="#1a7fbf" stroke-width="3.5"/></svg></span><span>ゆりかもめ（東京ビッグサイト方面）</span></div></li>' +
+      '</ul></div></div></section>' +
+
+    '<section class="blk"><div class="sec-h"><h2>お店一覧</h2></div>' +
+      '<p class="loadnote" id="loadnote">' + (state.loading ? '票を読み込み中' : '') + '</p><div class="chooser" id="chooser"><p class="q">押す人を選ぶ<span>STEP 1</span></p><div class="names" role="radiogroup" aria-label="押す人">' + chips + '</div>' +
+      '<p class="status" id="status" aria-live="polite">' + esc(state.msg) + '</p></div>' +
+      '<div class="dir-head" aria-hidden="true"><span>NO.</span><span>お店・予算</span><span>徒歩</span><span>席</span><span>食べログ</span><span>スタンプ</span></div>' +
+      d.shops.map((s, i) => rowHtml(d, s, i, t, letter)).join('') +
+    '</section>';
+}
+
+/* ===== 操作 ===== */
+document.addEventListener('click', function(e){
+  const tab = e.target.closest('.tab');
+  if (tab) { state.day = Number(tab.dataset.day); state.msg = ''; state.fresh = null; render(); return; }
+  const nm = e.target.closest('.name');
+  if (nm) { state.member = nm.dataset.m; setMe(state.member); state.msg = nm.dataset.m + 'で押します。お店の行の「スタンプを押す」へ'; state.fresh = null; render(); return; }
+  const pr = e.target.closest('.press');
+  if (pr) {
+    const d = D.days[state.day];
+    if (!state.member) {
+      state.msg = '先に押す人を選んでください';
+      const c = document.getElementById('chooser');
+      c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      c.classList.remove('nudge'); void c.offsetWidth; c.classList.add('nudge');
+      document.getElementById('status').textContent = state.msg;
+      return;
+    }
+    if (pr.getAttribute('aria-pressed') === 'true') return;
+    const who = state.member, shop = pr.dataset.shop;
+    state.saving = { shop: shop }; state.err = null; render();
+    store.save(d.id, who, shop).then(function(){ return store.load(); }).then(function(v){
+      state.votes = v; state.fresh = { shop: shop, member: who }; state.saving = null;
+      const sn = d.shops.find(x => x.id === shop).name;
+      state.msg = who + 'が「' + sn + '」にスタンプを押しました（選び直しできます）';
+      render();
+    }).catch(function(){ state.saving = null; state.err = { shop: shop }; render(); });
+  }
+});
+
+/* ===== 初期化 ===== */
+document.title = D.title;
+const teamParts = D.team.split('｜');
+document.getElementById('cover-top').innerHTML = '<span>AFTER HOURS GUIDE</span>' + teamParts.map(p => '<span>' + esc(p) + '</span>').join('');
+const tp = D.title.split(' ');
+document.getElementById('h1').innerHTML = '<span class="en">' + esc(tp[0]) + '</span><span class="ja">' + esc(tp.slice(1).join(' ')) + '</span>';
+document.getElementById('lead').textContent = D.days.length + '日分、各' + D.days[0].shops.length + '軒。名前を選んで、行きたいお店にスタンプを1つ押してください。';
+document.getElementById('foot').innerHTML = '<p>' + esc(D.team.replace('｜', '　')) + '</p><p>投票は全員で共有されます。選び直すと前の票は取り消されます。</p>';
+let last = '';
+function refresh(){
+  store.load().then(function(v){
+    const j = JSON.stringify(v), first = state.loading;
+    state.loading = false;
+    if (state.saving) return;
+    if (j !== last || first) { last = j; state.votes = v; render(); }
+    else { const n = document.getElementById('loadnote'); if (n) n.textContent = ''; }
+  }).catch(function(){
+    state.loading = false; const n = document.getElementById('loadnote'); if (n) n.textContent = '票を読み込めませんでした。しばらくして開き直してください';
+  });
+}
+render(); refresh();
+setInterval(function(){ if (document.visibilityState === 'visible') refresh(); }, 30000);
+})();
+</script>
+</body>
+</html>
