@@ -155,6 +155,10 @@ section.blk{margin-top:44px}
 .loadnote{font:500 12px/1.5 var(--mono);color:var(--mute);min-height:18px;margin-bottom:6px}
 .errmsg{color:#b3261e;font-weight:700;font-size:13px}
 .press:disabled{cursor:wait;opacity:.7}
+.ask{margin-top:10px;padding:12px;border:2px solid currentColor;background:#fff8d6}
+.ask p{margin:0 0 8px;font-weight:700}
+.ask-row{display:flex;flex-wrap:wrap;gap:8px}
+.askname{font:inherit;font-weight:700;padding:10px 14px;border:2px solid #1a1a1a;background:#fff;cursor:pointer;white-space:nowrap}
 .specs>div>b{display:block;font:500 12px/1.5 var(--mono);color:var(--mute);letter-spacing:.05em}
 .specs>div>span{font-weight:700;font-size:14px;line-height:1.55;display:block}
 .c-note p{font-size:14px}
@@ -424,7 +428,8 @@ function rowHtml(d, s, i, t, letter){
       '<ul class="stamps">' + st + '</ul>' +
       '<button class="press" data-shop="' + esc(s.id) + '"' + (state.saving ? ' disabled' : '') + ' aria-pressed="' + (mine ? 'true' : 'false') + '">' +
         (busy ? '保存中…' : mine ? IC.check + '押した' : IC.stampbtn + (state.member ? esc(state.member) + 'のスタンプを押す' : 'スタンプを押す')) +
-      '</button>' + (state.err && state.err.shop === s.id ? '<p class="errmsg" role="alert">保存できませんでした。もう一度押してください</p>' : '') + '</div>' +
+      '</button>' + (state.ask === s.id && !state.member ? '<div class="ask" role="group" aria-label="誰のスタンプ？"><p>誰のスタンプですか？</p><div class="ask-row">' + D.days[state.day].members.map(m => '<button class="askname" data-m="' + esc(m) + '" data-shop="' + esc(s.id) + '">' + esc(m) + '</button>').join('') + '</div></div>' : '') +
+      (state.err && state.err.shop === s.id ? '<p class="errmsg" role="alert">保存できませんでした。もう一度押してください</p>' : '') + '</div>' +
   '</article>';
 }
 
@@ -479,19 +484,19 @@ document.addEventListener('click', function(e){
   if (tab) { state.day = Number(tab.dataset.day); state.msg = ''; state.fresh = null; render(); return; }
   const nm = e.target.closest('.name');
   if (nm) { state.member = nm.dataset.m; setMe(state.member); state.msg = nm.dataset.m + 'で押します。お店の行の「スタンプを押す」へ'; state.fresh = null; render(); return; }
+  const an = e.target.closest('.askname');
+  if (an) { state.member = an.dataset.m; setMe(state.member); state.ask = null; castVote(an.dataset.shop); return; }
   const pr = e.target.closest('.press');
   if (pr) {
-    const d = D.days[state.day];
-    if (!state.member) {
-      state.msg = '先に押す人を選んでください';
-      const c = document.getElementById('chooser');
-      c.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      c.classList.remove('nudge'); void c.offsetWidth; c.classList.add('nudge');
-      document.getElementById('status').textContent = state.msg;
-      return;
-    }
+    // 名前が未選択なら、押したボタンのすぐ下で名前を聞く（上の選択欄まで戻らせない）
+    if (!state.member) { state.ask = pr.dataset.shop; render(); return; }
     if (pr.getAttribute('aria-pressed') === 'true') return;
-    const who = state.member, shop = pr.dataset.shop;
+    castVote(pr.dataset.shop);
+  }
+});
+function castVote(shop) {
+    const d = D.days[state.day];
+    const who = state.member;
     state.saving = { shop: shop }; state.err = null; render();
     store.save(d.id, who, shop).then(function(){ return store.load(); }).then(function(v){
       state.votes = v; state.fresh = { shop: shop, member: who }; state.saving = null;
@@ -499,8 +504,7 @@ document.addEventListener('click', function(e){
       state.msg = who + 'が「' + sn + '」にスタンプを押しました（選び直しできます）';
       render();
     }).catch(function(){ state.saving = null; state.err = { shop: shop }; render(); });
-  }
-});
+}
 
 /* ===== 初期化 ===== */
 document.title = D.title;
