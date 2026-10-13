@@ -298,7 +298,7 @@ function tally(d){
 /* ===== 当日の流れ ===== */
 const TT = {
   d14: { pre: [['17:00', '18:30', 'アフターパーティ', '閉場', '終了'], ['18:30', '@s', '移動']], post: null },
-  d15: { pre: [['17:00', '18:00', '撤収', '閉場', '撤収完了'], ['18:00', '@s', '移動']], post: ['@e', '21:15', '帰路'] }
+  d15: { pre: [['17:00', '18:00', '撤収', '閉場', '撤収完了'], ['18:00', '@s', '移動']], post: ['@e', '21:16', '駅へ', '新橋発 終電'] }
 };
 function timeline(d){
   const m = d.time.match(/(\d+:\d+)〜(\d+:\d+)?/);
@@ -319,6 +319,7 @@ function timeline(d){
     axisEnd = toMin(cfg.post[1]);
     segs.push({ a: eM, b: axisEnd, label: cfg.post[2], kind: 'pre' });
     marks.push([eM, '解散']);
+    if (cfg.post[3]) marks.push([axisEnd, cfg.post[3]]);
   }
   const a0 = segs[0].a, tot = axisEnd - a0;
   const pct = n => (n - a0) / tot * 100;
